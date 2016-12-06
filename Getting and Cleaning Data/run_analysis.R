@@ -1,0 +1,140 @@
+library(data.table)
+setwd("~/Downloads/UCI HAR Dataset/test")
+testdata<-data.table(subject=readLines("subject_test.txt"),x=readLines("X_test.txt"),y=readLines("y_test.txt"))
+setwd("~/Downloads/UCI HAR Dataset/train")
+traindata<-data.table(subject=readLines("subject_train.txt"),x=readLines("X_train.txt"),y=readLines("y_train.txt"))
+
+alldata<-rbind(testdata,traindata)
+tBodyAcc_X_mean<-numeric()
+tBodyAcc_Y_mean<-numeric()
+tBodyAcc_Z_mean<-numeric()
+tGravityAcc_X_mean<-numeric()
+tGravityAcc_Y_mean<-numeric()
+tGravityAcc_Z_mean<-numeric()
+tBodyAccJerk_X_mean<-numeric()
+tBodyAccJerk_Y_mean<-numeric()
+tBodyAccJerk_Z_mean<-numeric()
+tBodyGyro_X_mean<-numeric()
+tBodyGyro_Y_mean<-numeric()
+tBodyGyro_Z_mean<-numeric()
+tBodyGyroJerk_X_mean<-numeric()
+tBodyGyroJerk_Y_mean<-numeric()
+tBodyGyroJerk_Z_mean<-numeric()
+tBodyAccMag_mean<-numeric()
+tGravityAccMag_mean<-numeric()
+tBodyAccJerkMag_mean<-numeric()
+tBodyGyroMag_mean<-numeric()
+tBodyGyroJerkMag_mean<-numeric()
+fBodyAcc_X_mean<-numeric()
+fBodyAcc_Y_mean<-numeric()
+fBodyAcc_Z_mean<-numeric()
+fBodyAccJerk_X_mean<-numeric()
+fBodyAccJerk_Y_mean<-numeric()
+fBodyAccJerk_Z_mean<-numeric()
+fBodyGyro_X_mean<-numeric()
+fBodyGyro_Y_mean<-numeric()
+fBodyGyro_Z_mean<-numeric()
+fBodyAccMag_mean<-numeric()
+fBodyBodyAccJerkMag_mean<-numeric()
+fBodyBodyGyroMag_mean<-numeric()
+fBodyBodyGyroJerkMag_mean<-numeric()
+
+activitynames=character()
+for (i in 1:nrow(alldata)){
+		data<-as.numeric(unlist(strsplit(alldata$x[i]," "))[unlist(strsplit(alldata$x[i]," "))!=""])
+		tBodyAcc_X_mean<-append(tBodyAcc_X_mean,data[1])
+		tBodyAcc_Y_mean<-append(tBodyAcc_Y_mean,data[2])
+		tBodyAcc_Z_mean<-append(tBodyAcc_Z_mean,data[3])
+		tGravityAcc_X_mean<-append(tGravityAcc_X_mean,data[41])
+		tGravityAcc_Y_mean<-append(tGravityAcc_Y_mean,data[42])
+		tGravityAcc_Z_mean<-append(tGravityAcc_Z_mean,data[43])
+		tBodyAccJerk_X_mean<-append(tBodyAccJerk_X_mean,data[81])
+		tBodyAccJerk_Y_mean<-append(tBodyAccJerk_Y_mean,data[82])
+		tBodyAccJerk_Z_mean<-append(tBodyAccJerk_Z_mean,data[83])
+		tBodyGyro_X_mean<-append(tBodyGyro_X_mean,data[121])
+		tBodyGyro_Y_mean<-append(tBodyGyro_Y_mean,data[122])
+		tBodyGyro_Z_mean<-append(tBodyGyro_Z_mean,data[123])
+		tBodyGyroJerk_X_mean<-append(tBodyGyroJerk_X_mean,data[161])
+		tBodyGyroJerk_Y_mean<-append(tBodyGyroJerk_Y_mean,data[162])
+		tBodyGyroJerk_Z_mean<-append(tBodyGyroJerk_Z_mean,data[163])
+		tBodyAccMag_mean<-append(tBodyAccMag_mean,data[201])
+		tGravityAccMag_mean<-append(tGravityAccMag_mean,data[214])
+		tBodyAccJerkMag_mean<-append(tBodyAccJerkMag_mean,data[227])
+		tBodyGyroMag_mean<-append(tBodyGyroMag_mean,data[240])
+		tBodyGyroJerkMag_mean<-append(tBodyGyroJerkMag_mean,data[253])
+		fBodyAcc_X_mean<-append(fBodyAcc_X_mean,data[266])
+		fBodyAcc_Y_mean<-append(fBodyAcc_Y_mean,data[267])
+		fBodyAcc_Z_mean<-append(fBodyAcc_Z_mean,data[268])
+		fBodyAccJerk_X_mean<-append(fBodyAccJerk_X_mean,data[345])
+		fBodyAccJerk_Y_mean<-append(fBodyAccJerk_Y_mean,data[346])
+		fBodyAccJerk_Z_mean<-append(fBodyAccJerk_Z_mean,data[347])
+		fBodyGyro_X_mean<-append(fBodyGyro_X_mean,data[424])
+		fBodyGyro_Y_mean<-append(fBodyGyro_Y_mean,data[425])
+		fBodyGyro_Z_mean<-append(fBodyGyro_Z_mean,data[426])
+		fBodyAccMag_mean<-append(fBodyAccMag_mean,data[503])
+		fBodyBodyAccJerkMag_mean<-append(fBodyBodyAccJerkMag_mean,data[516])
+		fBodyBodyGyroMag_mean<-append(fBodyBodyGyroMag_mean,data[529])
+		fBodyBodyGyroJerkMag_mean<-append(fBodyBodyGyroJerkMag_mean,data[542])
+		
+		if(alldata$y[i]=="1"){
+			activitynames<-append(activitynames,"Walking")
+		}
+		if(alldata$y[i]=="2"){
+			activitynames<-append(activitynames,"Walking_Upstairs")
+		}
+		if(alldata$y[i]=="3"){
+			activitynames<-append(activitynames,"Walking_Downstairs")
+		}
+		if(alldata$y[i]=="4"){
+			activitynames<-append(activitynames,"Sitting")
+		}
+		if(alldata$y[i]=="5"){
+			activitynames<-append(activitynames,"Standing")
+		}
+		if(alldata$y[i]=="6"){
+			activitynames<-append(activitynames,"Laying")
+		}
+}
+
+alldata<-data.table(
+subject=alldata$subject,
+activity=activitynames,
+tBodyAcc_X_mean=tBodyAcc_X_mean,
+tBodyAcc_Y_mean=tBodyAcc_Y_mean,
+tBodyAcc_Z_mean=tBodyAcc_Z_mean,
+tGravityAcc_X_mean=tGravityAcc_X_mean,
+tGravityAcc_Y_mean=tGravityAcc_Y_mean,
+tGravityAcc_Z_mean=tGravityAcc_Z_mean,
+tBodyAccJerk_X_mean=tBodyAccJerk_X_mean,
+tBodyAccJerk_Y_mean=tBodyAccJerk_Y_mean,
+tBodyAccJerk_Z_mean=tBodyAccJerk_Z_mean,
+tBodyGyro_X_mean=tBodyGyro_X_mean,
+tBodyGyro_Y_mean=tBodyGyro_Y_mean,
+tBodyGyro_Z_mean=tBodyGyro_Z_mean,
+tBodyGyroJerk_X_mean=tBodyGyroJerk_X_mean,
+tBodyGyroJerk_Y_mean=tBodyGyroJerk_Y_mean,
+tBodyGyroJerk_Z_mean=tBodyGyroJerk_Z_mean,
+tBodyAccMag_mean=tBodyAccMag_mean,
+tGravityAccMag_mean=tGravityAccMag_mean,
+tBodyAccJerkMag_mean=tBodyAccJerkMag_mean,
+tBodyGyroMag_mean=tBodyGyroMag_mean,
+tBodyGyroJerkMag_mean=tBodyGyroJerkMag_mean,
+fBodyAcc_X_mean=fBodyAcc_X_mean,
+fBodyAcc_Y_mean=fBodyAcc_Y_mean,
+fBodyAcc_Z_mean=fBodyAcc_Z_mean,
+fBodyAccJerk_X_mean=fBodyAccJerk_X_mean,
+fBodyAccJerk_Y_mean=fBodyAccJerk_Y_mean,
+fBodyAccJerk_Z_mean=fBodyAccJerk_Z_mean,
+fBodyGyro_X_mean=fBodyGyro_X_mean,
+fBodyGyro_Y_mean=fBodyGyro_Y_mean,
+fBodyGyro_Z_mean=fBodyGyro_Z_mean,
+fBodyAccMag_mean=fBodyAccMag_mean,
+fBodyBodyAccJerkMag_mean=fBodyBodyAccJerkMag_mean,
+fBodyBodyGyroMag_mean=fBodyBodyGyroMag_mean,
+fBodyBodyGyroJerkMag_mean=fBodyBodyGyroJerkMag_mean
+)
+alldata$subject<-as.numeric(alldata$subject)
+alldata$activity<-as.factor(alldata$activity)
+tidydata<-tapply(alldata$fBodyGyro_Z_mean,list(alldata$subject,alldata$activity),mean)
+
+

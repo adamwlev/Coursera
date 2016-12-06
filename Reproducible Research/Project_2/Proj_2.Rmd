@@ -1,0 +1,126 @@
+---
+title: "Proj_2"
+author: "Adam Levin"
+date: "May 29, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Synopsis
+
+I will do a brief analysis of the publicly available storm data from the National Weather Service. I will investigate what types of weather events are the most costly in terms of Economic and Human costs. I define economic cost as the total damage to property and crops as a result of a store. And I define human cost as the total fatalities and injuries that are caused by a storm. I look at which types of events contribute most to total costs and also which are the most costly on average per occurance.
+
+
+## Reading in and Processing Data
+I will read in the .csv file first.
+
+```{r readindata, message=FALSE, cache=TRUE}
+setwd("~/Downloads")
+data <- read.csv("repdata-data-StormData.csv")
+```
+
+I will use the dplyr package to manipulate the data.
+In order to get damage to property and damage to crops data in usable form, we must convert the units column into numbers. "K" means thousands, "M" means millions, and "B" means billions. After that, we use to units columns to generate usable numbers for property damage and crop damage.
+
+```{r processunits, message=FALSE}
+library(dplyr)
+data <- tbl_df(data)
+data <- data %>% 
+        transform(Cropunits = 
+                ifelse(data$CROPDMGEXP=='K' | data$CROPDMGEXP=='k',1000,
+                ifelse(data$CROPDMGEXP=='M' | data$CROPDMGEXP=='m',10^6,
+                ifelse(data$CROPDMGEXP=='B' | data$CROPDMGEXP=='b',10^9,0))))
+
+data <- data %>% 
+        transform(Propunits = 
+                ifelse(data$PROPDMGEXP=='K' | data$PROPDMGEXP=='k',1000,
+                ifelse(data$PROPDMGEXP=='M' | data$PROPDMGEXP=='m',10^6,
+                ifelse(data$PROPDMGEXP=='B' | data$PROPDMGEXP=='b',10^9,0))))
+```
+
+```{r maketotals}
+
+data <- data %>%
+        transform(Cropdamage = data$CROPDMG*data$Cropunits,
+                  Propdamage = data$PROPDMG*data$Propunits)
+```
+
+Now, I'll create two more columns: one for the sum of the damage to Property and the damage to Crops, and another with the sum of the fatalities and injuries for each event.
+
+``` {r moretotals}
+
+data <- data %>%
+        transform(TotalEconDam = data$Cropdamage + data$Propdamage,
+                  TotalHumDam = data$FATALITIES + data$INJURIES)
+```
+
+
+## Results
+
+Now it's time to see which events have the biggest economic impact (after that we'll take a look at human impact). I will group by the type of event, sum all the events of each type, and order by TotalEconDam which is the sum of Cropdamage and Propdamage.
+
+``` {r results1}
+
+data %>% 
+    group_by(EVTYPE) %>% 
+    summarize(TotalEconDam=sum(TotalEconDam),TotalHumDam=sum(TotalHumDam)) %>%
+    arrange(desc(TotalEconDam))
+```
+
+So floods cause the most economic damage. Let's try to visualize some of this data. As we have already seen the total economic damage for each type of event, I will show average economic damage for each type of event. Since there are many different types of events, I will only show the top 7 types, in terms of average economic damage. Also, as a product of the way the data was entered there are many events with only 1 or a few observations, I will restrict to types of events with 30 or more observations. For the plot, I plotted it on a log y scale so it's easier to visualize.
+
+``` {r boxplots, message=FALSE}
+
+top7econ_ave <- (data %>% 
+    group_by(EVTYPE) %>% 
+    summarize(AverageEconDam=mean(TotalEconDam),Numofoccurances=n()) %>%
+    filter(Numofoccurances>=30) %>%
+    arrange(desc(AverageEconDam)))[1:7,] %>% collect %>% .[['EVTYPE']]
+
+df <- data %>% filter(EVTYPE %in% top7econ_ave) %>% select(EVTYPE,TotalEconDam)
+require(reshape2)
+df.m <- melt(df, id.var = "EVTYPE")
+require(lattice)
+bwplot(value~EVTYPE,data=df.m,scales=list(x=list(cex=.43),y=list(log=10)),
+       panel=function(x,y,...){
+            panel.bwplot(x,y,...)
+            panel.stripplot(x,y,...)
+        })
+```
+
+
+Finally I will show the same as above but for Human Damage (defined as total of casualties and fatalities). First I will show the events that have the highest total human cost:
+
+``` {r results2}
+
+data %>% 
+    group_by(EVTYPE) %>% 
+    summarize(TotalEconDam=sum(TotalEconDam),TotalHumDam=sum(TotalHumDam)) %>%
+    arrange(desc(TotalHumDam))
+```
+
+And now I will show the same box plots as before (top 7 in terms of average Human cost per occurance).
+
+``` {r resultsfinal}
+top7hum_ave <- (data %>% 
+    group_by(EVTYPE) %>% 
+    summarize(AverageHumDam=mean(TotalHumDam),Numofoccurances=n()) %>%
+    filter(Numofoccurances>=30) %>%
+    arrange(desc(AverageHumDam)))[1:7,] %>% collect %>% .[['EVTYPE']]
+
+df <- data %>% filter(EVTYPE %in% top7hum_ave) %>% select(EVTYPE,TotalHumDam)
+df.m <- melt(df, id.var = "EVTYPE")
+bwplot(value~EVTYPE,data=df.m,scales=list(x=list(cex=.43),y=list(log=10)),
+       panel=function(x,y,...){
+            panel.bwplot(x,y,...)
+            panel.stripplot(x,y,...)
+        })
+
+```
+
+As you can see, heat is a very damaging to public health!
+
+I hope you enjoyed my project!

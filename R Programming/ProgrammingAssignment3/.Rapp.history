@@ -1,0 +1,445 @@
+data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
+rank(data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack)
+min(rank(data[data$State=="NY",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack))
+min(rank(data[data$State=="AK",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack))
+order(data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack)
+order(data[data$State=="TX",])
+rank(data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack)
+data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
+data[data$State=="TX",][,c(2,11)]
+b<-c(8,2,13,4,2,4,3)
+names(b)<-c("a","b","c","d","e","f","g")
+b
+rank(b,tied.method="first")
+rank(b,ties.method="first")
+rank(b,ties.method="max")
+rank(data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack,ties.method="max")
+rank(data[data$State=="TX",]$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack,ties.method="max")==1
+state="CA"
+data[data$State=state,11]
+data[data$State==state,11]
+data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]
+data[data$State==state,11]
+rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))
+best<-min(rank(data[data$State==state,11],ties.method="max"))
+data[data[,11]==best,][,2]
+data[data[,11]==best,]
+min(rank(data[data$State==state,11],ties.method="max"))
+rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))
+best<-min(rank(data[data$State==state,11],ties.method="max"))
+best
+data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]
+best<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]
+data[data[data$State,11]==best,]
+data[data[data$State==state,11]==best,]
+data[data[data$State==state,11]==best,][,2]
+best<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]
+best
+data[data$State==state,11]
+rank(data[data$State==state,11],ties.method="max")
+min(rank(data[data$State==state,11],ties.method="max"))
+rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))
+data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]
+data[data$State==state,11]==10.5
+data[data$State==state,][data[data$State==state,11]==10.5]
+data[data$State==state,][data[data$State==state,11]==10.5,]
+data[data$State==state,][data[data$State==state,11]==10.5,2]
+data[data$State==state,][data[data$State==state,11]==best,2]
+help(sort)
+v<-c("jkj","dfdf","tyty")
+sort(v)
+sort(data[data$State==state,][data[data$State==state,11]==best,2])
+sort(data[data$State==state,][data[data$State==state,11]==best,2])
+state="TX"
+best<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]#
+		output<-sort(data[data$State==state,][data[data$State==state,11]==best,2])
+output
+state="AK"
+state="AL"
+best<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]#
+		output<-sort(data[data$State==state,][data[data$State==state,11]==best,2])[1]
+output
+best <- function(state, outcome) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		value<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))]#
+		output<-sort(data[data$State==state,][data[data$State==state,11]==value,2])[1]#
+	}#
+	if(outcome=="heart failure"){#
+		value<-data[data$State==state,17][rank(data[data$State==state,17],ties.method="max")==min(rank(data[data$State==state,17],ties.method="max"))]#
+		output<-sort(data[data$State==state,][data[data$State==state,17]==value,2])[1]#
+	}#
+	if(outcome=="heart failure"){#
+		value<-data[data$State==state,23][rank(data[data$State==state,23],ties.method="max")==min(rank(data[data$State==state,23],ties.method="max"))]#
+		output<-sort(data[data$State==state,][data[data$State==state,23]==value,2])[1]#
+	}#
+	return(output)#
+}
+best("TX", "heart attack")
+best("TX", "heart failure")
+best <- function(state, outcome) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		value<-data[data$State==state,11][rank(data[data$State==state,11],ties.method="max")==min(rank(data[data$State==state,11],ties.method="max"))][1]#
+		output<-sort(data[data$State==state,][data[data$State==state,11]==value,2])[1]#
+	}#
+	if(outcome=="heart failure"){#
+		value<-data[data$State==state,17][rank(data[data$State==state,17],ties.method="max")==min(rank(data[data$State==state,17],ties.method="max"))][1]#
+		output<-sort(data[data$State==state,][data[data$State==state,17]==value,2])[1]#
+	}#
+	if(outcome=="heart failure"){#
+		value<-data[data$State==state,23][rank(data[data$State==state,23],ties.method="max")==min(rank(data[data$State==state,23],ties.method="max"))][1]#
+		output<-sort(data[data$State==state,][data[data$State==state,23]==value,2])[1]#
+	}#
+	return(output)#
+}
+best("TX", "heart attack")
+best("TX", "heart failure")
+best("MD", "heart attack")
+best("MD", "pneumonia")
+best("BB", "heart attack")
+best("NY", "hert attack")
+names(data)
+data[data$State=="TX",data$Hospital.Name=="BAYLOR REGIONAL MEDICAL CENTER AT GRAPEVINE"][,11]
+data[data$State=="TX",data$Hospital.Name=="BAYLOR REGIONAL MEDICAL CENTER AT GRAPEVINE"]
+best("TX", "heart failure")
+data[data$State=="TX"]
+data[data$State=="TX",]
+data[data$State=="TX",c(2,11)]
+data[data$State=="TX",data$Hospital.Name=="BAYLOR REGIONAL MEDICAL CENTER AT GRAPEVINE",]
+data[data$State=="TX",data$Hospital.Name=="FORT DUNCAN MEDICAL CENTER",]
+data[data$State=="TX",][data$Hospital.Name=="FORT DUNCAN MEDICAL CENTER",][,c(2,11)]
+data[data$State=="TX",][data$Hospital.Name=="FORT DUNCAN MEDICAL CENTER",]
+data[data$State=="TX",]$Hospital.Name=="FORT DUNCAN MEDICAL CENTER"
+source("best.R")
+best("TX", "heart attack")
+source("http://d396qusza40orc.cloudfront.net/rprog%2Fscripts%2Fsubmitscript3.R")
+source("submitscript3.R")
+submit()
+submit()
+submit()
+best("NY", "pneumonia")
+data[data$State="NY",][order(data[,11]),]
+data[data$State=="NY",][order(data[,11]),]
+data[data$State=="NY",][order(data[,11]),][,c(2,11)]
+data[data$State=="NY",][order(data[data$State=="NY",11]),][,c(2,11)]
+data[data$State=="NY",][order(data[data$State=="NY",11],data[data$State=="NY",2]),][,c(2,11)]
+outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]
+outcome
+setwd("~/Documents/R Programming/ProgrammingAssignment3")#
+best <- function(state, outcome,num) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,17],data[data$State==state,2]),][1,2]	#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]#
+	}#
+	return(output)#
+}
+best("NY", "pneumonia")
+submit()
+submit()
+best("NY","pneumonia")
+data[data$State=="NY",][order(data[data$State=="NY",23],data[data$State==state,2]),][1,2]
+data[data$State=="NY",][order(data[data$State=="NY",23],data[data$State=="NY",2]),][1,2]
+data[data$State=="NY",][order(data[data$State=="NY",23],data[data$State=="NY",2]),]
+data[data$State=="NY",][order(data[data$State=="NY",23],data[data$State=="NY",2]),][,c(2,23)]
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),]
+state="NY"
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][,c(2,23)]
+data[data$State==state,][order(data[data$State==state,23]),][,c(2,23)]
+data[data$State=="NY",][order(data[data$State=="NY",11],data[data$State=="NY",2]),][,c(2,11)]
+best <- function(state, outcome,num) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,17],data[data$State==state,2]),][1,2]	#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]#
+	}#
+	return(output)#
+}
+submit()
+data[data$State==state,][order(data[data$State==state,23]),][,c(2,23)]
+best <- function(state, outcome,num) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,17],data[data$State==state,2]),][1,2]	#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]#
+	}#
+	return(output)#
+}
+data[data$State==state,][order(data[data$State==state,23]),][,c(2,23)]
+data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])
+data[data$State==state,][order(data[data$State==state,23]),][,c(2,23)]
+best <- function(state, outcome,num) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,17],data[data$State==state,2]),][1,2]	#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]#
+	}#
+	return(output)#
+}
+data[data$State==state,][order(data[data$State==state,23]),][,c(2,23)]
+sumit()
+submit()
+submit()
+submit()
+best <- function(state, outcome,num) {#
+	data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])#
+	## Check that state and outcome are valid#
+	states<-levels(data$State)#
+	if (!(state %in% states)){#
+		stop("invalid state")#
+	}#
+	outcomes<-c("heart attack","heart failure","pneumonia")#
+	if (!(outcome %in% outcomes)){#
+		stop("invalid outcome")#
+	}#
+	if(outcome=="heart attack"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][1,2]#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,17],data[data$State==state,2]),][1,2]	#
+	}#
+	if(outcome=="heart failure"){#
+		outcome<-data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]#
+	}#
+	return(output)#
+}
+submit()
+submit()
+submit()
+best("NY","pneumonia")
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][,c(2,23)]
+state="NY"
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][1,2]
+data[data$State==state,][order(data[data$State==state,23],data[data$State==state,2]),][,c(2,23)]
+rm(ls=rm.all())
+rm(list=ls(all=TRUE))
+source("http://d396qusza40orc.cloudfront.net/rprog%2Fscripts%2Fsubmitscript3.R")
+submit()
+submit()
+submit()
+submit()
+ranking<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),]
+data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])
+state="NY"
+data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][c(2,11)]
+source("rankhospital.R")
+rankhospital("NY","heart attack")
+state
+data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),][,c(2,11)]
+submit()
+submit()
+ranking[,11][!is.na(ranking[,11])]
+ranking
+state="NC"
+ranking<-data[data$State==state,][order(data[data$State==state,11],data[data$State==state,2]),]
+ranking[sum(ranking[,11][!is.na(ranking[,11])]),2]
+!is.na(ranking[,11])
+sum(!is.na(ranking[,11]))
+ranking[sum(!is.na(ranking[,11])),2]
+submit()
+submit
+submit()
+submit()
+submit()
+output<-data.frame(cbind(states),0)
+states<-levels(data$State)
+output<-data.frame(cbind(states),0)
+output
+source(rankall.R)
+source("rankall.R")
+source("rankall.R")
+source("rankall.R")
+rankall("heart attack")
+source("rankall.R")
+rankall("heart attack")
+source("rankall.R")
+rankall("heart attack")
+submit()
+submit()
+submit()
+rm(list=ls(all=TRUE))
+source("http://d396qusza40orc.cloudfront.net/rprog%2Fscripts%2Fsubmitscript3.R")
+submit()
+rankall("heart attack",4)
+source("rankall.R")
+rankall("heart attack",4)
+submit()
+submit()
+rankall("heart attack",4)
+output<-data.frame(cbind(states),0)
+states<-levels(data$State)
+data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])#
+#
+	states<-levels(data$State)#
+	output<-data.frame(cbind(states),0)#
+	names(output)<-c("hospital","state")
+output
+submit()
+submit()
+source("rankall.R")
+rankall("heart attack",4)
+traceback()
+submit()
+source("rankall.R")
+rankall("heart attack",4)
+source("rankall.R")
+source("rankall.R")
+rankall("heart attack",4)
+source("rankall.R")
+source("rankall.R")
+rankall("heart attack",4)
+source("rankall.R")
+rankall("heart attack",4)
+submit()
+states<-levels(data$State)
+states
+states[9]
+length(states)
+submit()
+i=5
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+event<-11
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+ranking
+ranking[1,2]
+ranking[sum(!is.na(ranking[,11])),2]
+ranking[num,2]
+rm(list=ls(all=TRUE))
+source("http://d396qusza40orc.cloudfront.net/rprog%2Fscripts%2Fsubmitscript3.R")
+submit()
+submit
+submit()
+source("rankall.R")
+head(rankall("heart attack", 20), 10)
+tail(rankall("pneumonia", "worst"), 3)
+source("rankall.R")
+tail(rankall("pneumonia", "worst"), 3)
+head(rankall("heart attack", 20), 10)
+tail(rankall("heart failure"), 10)
+submit()
+submit()
+submit()
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", colClasses = "character") 	#
+	data$State<-as.factor(data$State)#
+	data[,11]<-as.numeric(data[,11])#
+	data[,17]<-as.numeric(data[,17])#
+	data[,23]<-as.numeric(data[,23])
+states<-levels(data$State)#
+	output<-data.frame(cbind(states),0)#
+	names(output)<-c("state","hospital")
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+i=8
+i<-8
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+event<-23
+ranking<-data[data$State==states[i],][order(data[data$State==states[i],event],data[data$State==states[i],2]),]
+ranking[,c(2,23)]
+sum(!is.na(ranking[,11]))
+!is.na(ranking[,11])
+submit()
